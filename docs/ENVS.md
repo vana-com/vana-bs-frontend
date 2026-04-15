@@ -463,6 +463,7 @@ Settings for meta tags, OG tags and SEO
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED | `boolean` | Set to true if network has account feature | Required | - | `true` | v1.0.x+ |
+| NEXT_PUBLIC_ACCOUNT_EMAIL_ENABLED | `boolean` | Set to true to enable email linking and OTP authentication for accounts | Optional | `false` | `true` | v1.0.x+ |
 | NEXT_PUBLIC_RE_CAPTCHA_APP_SITE_KEY | `boolean` | See [below](#google-recaptcha) | Required | - | `<your-secret>` | v1.0.x+ |
 
 &nbsp;

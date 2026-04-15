@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
 
+import config from 'configs/app';
 import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
 
 import WatchlistTableItem from './WatchListTableItem';
@@ -22,7 +23,9 @@ const WatchlistTable = ({ data, isLoading, onDeleteClick, onEditClick, top, hasE
         <TableRow>
           <TableColumnHeader width="70%">Address</TableColumnHeader>
           <TableColumnHeader width="30%">Private tag</TableColumnHeader>
-          <TableColumnHeader width="160px">Email notification</TableColumnHeader>
+          { config.features.accountEmail.isEnabled && (
+            <TableColumnHeader width="160px">Email notification</TableColumnHeader>
+          ) }
           <TableColumnHeader width="108px"></TableColumnHeader>
         </TableRow>
       </TableHeaderSticky>

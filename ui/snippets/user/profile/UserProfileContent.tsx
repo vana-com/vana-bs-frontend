@@ -104,11 +104,13 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
               <Box ml="auto">{ shortenString(data?.address_hash) }</Box> : <Link ml="auto" onClick={ onAddAddress }>Add address</Link> }
           </Flex>
         ) }
-        <Flex p={ 2 } columnGap={ 4 }>
-          <Box mr="auto">Email</Box>
-          { data?.email ?
-            <TruncatedText text={ data.email }/> : <Link onClick={ onAddEmail }>Add email</Link> }
-        </Flex>
+        { (config.features.accountEmail.isEnabled || data?.email) && (
+          <Flex p={ 2 } columnGap={ 4 }>
+            <Box mr="auto">Email</Box>
+            { data?.email ?
+              <TruncatedText text={ data.email }/> : <Link onClick={ onAddEmail }>Add email</Link> }
+          </Flex>
+        ) }
       </Box>
 
       { config.features.blockchainInteraction.isEnabled && <UserProfileContentWallet onClose={ onClose } mt={ 3 }/> }

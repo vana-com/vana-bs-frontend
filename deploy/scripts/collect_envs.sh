@@ -42,4 +42,14 @@ save_build-time_envs() {
 }
 
 make_registry_file
+
+# Ensure custom env vars are registered (may not yet be in upstream ENVS.md)
+ensure_registered() {
+  local var_name="$1"
+  if ! grep -q "^${var_name}=" .env.registry 2>/dev/null; then
+    echo "${var_name}=__" >> .env.registry
+  fi
+}
+ensure_registered "NEXT_PUBLIC_ACCOUNT_EMAIL_ENABLED"
+
 save_build-time_envs

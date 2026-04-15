@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
 
+import config from 'configs/app';
 import useApiFetch from 'lib/api/useApiFetch';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Switch } from 'toolkit/chakra/switch';
@@ -79,16 +80,18 @@ const WatchListTableItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEm
       <TableCell>
         <Tag loading={ isLoading } truncated>{ item.name }</Tag>
       </TableCell>
-      <TableCell>
-        <Skeleton loading={ isLoading } display="inline-block">
-          <Switch
-            checked={ notificationEnabled }
-            onCheckedChange={ onSwitch }
-            disabled={ !hasEmail || switchDisabled }
-            aria-label="Email notification"
-          />
-        </Skeleton>
-      </TableCell>
+      { config.features.accountEmail.isEnabled && (
+        <TableCell>
+          <Skeleton loading={ isLoading } display="inline-block">
+            <Switch
+              checked={ notificationEnabled }
+              onCheckedChange={ onSwitch }
+              disabled={ !hasEmail || switchDisabled }
+              aria-label="Email notification"
+            />
+          </Skeleton>
+        </TableCell>
+      ) }
       <TableCell>
         <TableItemActionButtons onDeleteClick={ onItemDeleteClick } onEditClick={ onItemEditClick } isLoading={ isLoading }/>
       </TableCell>

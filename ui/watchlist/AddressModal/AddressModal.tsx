@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
 
+import config from 'configs/app';
 import FormModal from 'ui/shared/FormModal';
 
 import AddressForm from './AddressForm';
@@ -18,7 +19,8 @@ type Props = {
 
 const AddressModal: React.FC<Props> = ({ open, onOpenChange, onSuccess, data, isAdd, hasEmail, showEmailAlert }) => {
   const title = !isAdd ? 'Edit watch list address' : 'New address to watch list';
-  const text = isAdd ? 'An email notification can be sent to you when an address on your watch list sends or receives any transactions.' : '';
+  const text = isAdd && config.features.accountEmail.isEnabled ?
+    'An email notification can be sent to you when an address on your watch list sends or receives any transactions.' : '';
 
   const [ isAlertVisible, setAlertVisible ] = useState(false);
 

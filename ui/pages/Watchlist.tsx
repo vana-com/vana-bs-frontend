@@ -17,6 +17,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Pagination from 'ui/shared/pagination/Pagination';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
+import config from 'configs/app';
 import useRedirectForInvalidAuthToken from 'ui/snippets/auth/useRedirectForInvalidAuthToken';
 import AddressModal from 'ui/watchlist/AddressModal/AddressModal';
 import DeleteAddressModal from 'ui/watchlist/DeleteAddressModal';
@@ -88,9 +89,11 @@ const WatchList: React.FC = () => {
     return (
       <>
         { !hasEmail && <WatchlistEmailAlert/> }
-        <AccountPageDescription>
-          An email notification can be sent to you when an address on your watch list sends or receives any transactions.
-        </AccountPageDescription>
+        { config.features.accountEmail.isEnabled && (
+          <AccountPageDescription>
+            An email notification can be sent to you when an address on your watch list sends or receives any transactions.
+          </AccountPageDescription>
+        ) }
         <DataListDisplay
           isError={ isError }
           itemsNum={ data?.items.length }
