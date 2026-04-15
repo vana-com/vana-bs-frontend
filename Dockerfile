@@ -3,7 +3,7 @@
 # *****************************
 FROM node:22.14.0-alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat python3 make g++
+RUN apk add --no-cache libc6-compat python3 make g++ cmake openssl-dev linux-headers
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 ### APP
@@ -90,6 +90,7 @@ COPY . .
 RUN set -a && \
     source ./deploy/scripts/build_sprite.sh && \
     ./deploy/scripts/collect_envs.sh ./docs/ENVS.md && \
+    echo "NEXT_PUBLIC_ACCOUNT_EMAIL_ENABLED=__" >> .env.registry && \
     set +a
 
 # Next.js collects completely anonymous telemetry data about general usage.

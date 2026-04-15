@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
 
+import config from 'configs/app';
 import useApiFetch from 'lib/api/useApiFetch';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Switch } from 'toolkit/chakra/switch';
@@ -83,18 +84,20 @@ const WatchListItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEmail }
           <Tag loading={ isLoading } truncated>{ item.name }</Tag>
         </HStack>
       </Box>
-      <Flex alignItems="center" justifyContent="space-between" mt={ 6 } w="100%">
-        <HStack gap={ 3 }>
-          <Text textStyle="sm" fontWeight={ 500 }>Email notification</Text>
-          <Skeleton loading={ isLoading } display="inline-block">
-            <Switch
-              checked={ notificationEnabled }
-              onCheckedChange={ onSwitch }
-              aria-label="Email notification"
-              disabled={ !hasEmail || switchDisabled }
-            />
-          </Skeleton>
-        </HStack>
+      <Flex alignItems="center" justifyContent={ config.features.accountEmail.isEnabled ? 'space-between' : 'flex-end' } mt={ 6 } w="100%">
+        { config.features.accountEmail.isEnabled && (
+          <HStack gap={ 3 }>
+            <Text textStyle="sm" fontWeight={ 500 }>Email notification</Text>
+            <Skeleton loading={ isLoading } display="inline-block">
+              <Switch
+                checked={ notificationEnabled }
+                onCheckedChange={ onSwitch }
+                aria-label="Email notification"
+                disabled={ !hasEmail || switchDisabled }
+              />
+            </Skeleton>
+          </HStack>
+        ) }
         <TableItemActionButtons onDeleteClick={ onItemDeleteClick } onEditClick={ onItemEditClick } isLoading={ isLoading }/>
       </Flex>
     </ListItemMobile>

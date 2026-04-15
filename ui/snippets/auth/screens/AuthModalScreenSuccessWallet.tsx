@@ -50,7 +50,7 @@ const AuthModalScreenSuccessWallet = ({ address, onAddEmail, onClose, isAuth, pr
         has been successfully used to log in to your Blockscout account
         { Boolean(rewardsToken) && ` and Merits Program` }.
       </Text>
-      { !profile?.email ? (
+      { !profile?.email && config.features.accountEmail.isEnabled ? (
         <>
           <Text mt={ 6 }>
             Add your email to receive exclusive updates about Blockscout { config.features.rewards.isEnabled ? 'Merits ' : ' ' }

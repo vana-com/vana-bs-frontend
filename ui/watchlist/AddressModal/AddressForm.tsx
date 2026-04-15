@@ -6,6 +6,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 
 import type { WatchlistAddress, WatchlistErrors } from 'types/api/account';
 
+import config from 'configs/app';
 import type { ResourceErrorAccount } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
 import getErrorMessage from 'lib/getErrorMessage';
@@ -131,7 +132,7 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
           bgColor="dialog.bg"
           mb={ 8 }
         />
-        { hasEmail ? (
+        { config.features.accountEmail.isEnabled && hasEmail ? (
           <>
             <Text color="text.secondary" fontSize="sm" marginBottom={ 5 }>
               Please select what types of notifications you will receive
@@ -146,7 +147,7 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
             />
           </>
         ) : null }
-        { !hasEmail && showEmailAlert ? (
+        { config.features.accountEmail.isEnabled && !hasEmail && showEmailAlert ? (
           <Alert
             status="info"
             descriptionProps={{ alignItems: 'center', gap: 2 }}

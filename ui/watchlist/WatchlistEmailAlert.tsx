@@ -1,5 +1,6 @@
 import React from 'react';
 
+import config from 'configs/app';
 import { Alert } from 'toolkit/chakra/alert';
 import { Button } from 'toolkit/chakra/button';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
@@ -7,6 +8,10 @@ import AuthModal from 'ui/snippets/auth/AuthModal';
 
 const WatchlistEmailAlert = () => {
   const authModal = useDisclosure();
+
+  if (!config.features.accountEmail.isEnabled) {
+    return null;
+  }
 
   return (
     <>
